@@ -1,0 +1,11 @@
+tr {
+    td {
+        padding: 6px 24px 6px 24px;
+        font-size: 16px;
+        line-height: 20px;
+        color: #1a1a1a;
+    }
+    &:nth-child(2n) {
+        background: #f1f1f1;
+    }
+}

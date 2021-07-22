@@ -1,0 +1,146 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    .container {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url(../..//assets/img/headerBg.png);
+        background-position: bottom;
+        .infoSection {
+            max-width: 1440px;
+            padding: 24px 130px 0px 130px;
+            box-sizing: border-box;
+            margin: auto;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+            margin-bottom: 38px;
+            flex-wrap: wrap;
+            .logo {
+                width: 100%;
+                color: #fff;
+                box-sizing: border-box;
+                font-size: 40px;
+            }
+            .infoWrapper {
+                max-width: 568px;
+                color: #ffffff;
+                h1 {
+                    font-size: 48px;
+                    font-weight: normal;
+                    margin: 48px 0px 24px 0px;
+                    line-height: 59px;
+                    b {
+                        font-weight: bold;
+                    }
+                }
+                p {
+                    line-height: 142%;
+                    font-size: 20px;
+                    margin: 24px 0 32px 0;
+                }
+            }
+            .statsBtn {
+                display: inline-flex;
+                background: #fff;
+                color: #3a80ba;
+                padding: 16px 32px;
+                border-radius: 8px;
+                text-decoration: none;
+            }
+            img {
+                display: flex;
+            }
+        }
+    }
+    .aboutSection {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h2 {
+            font-weight: normal;
+            font-size: 32px;
+            color: #1a1a1a;
+            max-width: 450px;
+            text-align: center;
+            b {
+                font-weight: bold;
+            }
+        }
+        p {
+            font-size: 20px;
+            text-align: center;
+            color: #7e7e7e;
+            max-width: 680px;
+            line-height: 142%;
+            margin-top: 24px;
+        }
+        .cardsWrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 128px;
+        }
+    }
+    footer {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url(../..//assets/img/footerBg.png);
+        padding-top: 26px;
+        background-color: transparent ;
+        .emailSubscribe {
+            display: flex;
+            justify-content: space-between;
+            width: 580px;
+            margin: auto;
+            border: 1px solid #f1f1f1;
+            background: #fff;
+            border-radius: 10px;
+            padding: 4px;
+            margin-bottom: 24px;
+            input[type="text"] {
+                width: 100%;
+                margin-left: 19px;
+                border: none !important;
+                font-size: 16px;
+                line-height: 162%;
+                color: #b9b9b9;
+                &::-webkit-input-placeholder {
+                    color: #b9b9b9;
+                }
+                &:focus {
+                    outline: none !important;
+                }
+            }
+            button {
+                cursor: pointer;
+                background: #3a80ba !important;
+                border: none !important;
+                color: #fff;
+                font-size: 16px;
+                line-height: 142%;
+                border-radius: 8px;
+                padding: 16px 48px;
+            }
+        }
+        .footerInfo {
+            max-width: 1440px;
+            box-sizing: border-box;
+            margin: auto;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 130px;
+            p {
+                display: flex;
+                color: #fff;
+                margin: 0;
+            }
+            .logo {
+                font-size: 32px;
+            }
+        }
+    }
+}

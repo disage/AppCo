@@ -1,0 +1,88 @@
+.statistics {
+    .container {
+        padding: 0 130px;
+        max-width: 1440px;
+        margin: auto;
+        box-sizing: border-box;
+        .breadcrumbs {
+            margin: 16px 0 24px 0;
+            a,
+            span {
+                font-size: 16px;
+                line-height: 20px;
+                color: #cccccc;
+                text-decoration: none;
+            }
+            span {
+                margin: 0 8px;
+            }
+            .selectedRoute {
+                color: #3a80ba;
+            }
+        }
+        h2 {
+            font-weight: bold;
+            font-size: 32px;
+            line-height: 39px;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 24px;
+            .theader {
+                th {
+                    &:first-child {
+                        border-top-left-radius: 8px;
+                    }
+                    &:last-child {
+                        border-top-right-radius: 8px;
+                    }
+                    background: #3a80ba;
+
+                    text-align: left;
+                    padding: 14px;
+                    font-size: 16px;
+                    color: #ffffff;
+                    line-height: 20px;
+                }
+            }
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 24px;
+            ul {
+                li {
+                    button {
+                        width: 48px;
+                        height: 48px;
+                        color: #1a1a1a;
+                        border-radius: 8px;
+                        border: 2px solid #f1f1f1;
+                        .MuiPaginationItem-icon {
+                            fill: #3a80ba;
+                            border: none !important;
+                        }
+                    }
+                    .Mui-selected {
+                        background: #3a80ba;
+                        color: #fff;
+                    }
+                }
+            }
+            .pageItem {
+                max-width: 48px;
+                list-style: none;
+                display: flex;
+                padding: 21px 14px;
+                border-radius: 8px;
+                font-size: 16px;
+                line-height: 20px;
+                justify-content: center;
+                align-items: center;
+                color: #1a1a1a;
+            }
+        }
+    }
+}

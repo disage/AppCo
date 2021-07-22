@@ -1,0 +1,21 @@
+footer {
+    background: #1c3b55;
+    .container {
+        max-width: 1440px;
+        box-sizing: border-box;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 130px !important;
+        p {
+            display: flex;
+            color: #fff;
+            margin: 0;
+        }
+        .logo {
+            font-size: 24px;
+        }
+    }
+}
