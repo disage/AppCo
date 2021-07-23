@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import TableRow from '../../components/TableRow/TableRow'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import './Statistics.scss'
 
 import Pagination from '@material-ui/lab/Pagination'
