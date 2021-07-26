@@ -1,17 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { DateRangePicker } from 'rsuite'
-import 'rsuite/dist/styles/rsuite-default.css'
 import Footer from '../../components/Footer/Footer'
 import Header from '../../components/Header/Header'
 import { NavLink } from 'react-router-dom'
 import './User.scss'
-import { CanvasJSChart } from 'canvasjs-react-charts'
+import 'rsuite/dist/styles/rsuite-default.css'
+import CanvasJSReact from '../../assets/canvasjs/canvasjs.react'
+
+let CanvasJSChart = CanvasJSReact.CanvasJSChart
 
 const User = () => {
+	let currentUserId = window.location.pathname.split('/')[2]
+	const API_URL = `http://localhost:3004/user/${currentUserId}`
+	const [user, setUser] = useState([])
+
+	useEffect(() => {
+		fetch(API_URL)
+			.then(response => {
+				return response.json()
+			})
+			.then(data => {
+				setUser(data.data)
+			})
+	}, [])
+	let clicksArr = []
+	user.forEach(item => {
+		clicksArr.push({ x: new Date(item.date), y: item.clicks })
+	})
+	let viewsArr = []
+	user.forEach(item => {
+		viewsArr.push({ x: new Date(item.date), y: item.page_views })
+	})
+
 	const options = {
 		animationEnabled: true,
-		// exportEnabled: true,
-		theme: 'light2', // "light1", "dark1", "dark2"
+		theme: 'light2',
 		title: {
 			text: 'Clicks'
 		},
@@ -20,18 +43,26 @@ const User = () => {
 		},
 		data: [
 			{
-				type: 'line',
-				// toolTipContent: '    {x}: {y}%',
-
+				type: 'spline',
 				xValueFormatString: 'DD MMMM',
-
-				dataPoints: [
-					{ x: new Date('2017- 10- 03'), y: 260 },
-					{ x: new Date('2017- 10- 05'), y: 123 },
-					{ x: new Date('2017-10-06'), y: 0 },
-					{ x: new Date('2017-10-07'), y: 230 },
-					{ x: new Date('2017-10-08'), y: 420 }
-				]
+				dataPoints: clicksArr
+			}
+		]
+	}
+	const options2 = {
+		animationEnabled: true,
+		theme: 'light2',
+		title: {
+			text: 'Views'
+		},
+		axisX: {
+			valueFormatString: 'DD MMMM'
+		},
+		data: [
+			{
+				type: 'spline',
+				xValueFormatString: 'DD MMMM',
+				dataPoints: viewsArr
 			}
 		]
 	}
@@ -45,7 +76,6 @@ const User = () => {
 		new Date().getMonth(),
 		new Date().getDate() + 7
 	)
-	console.log(new Date().getDay())
 	return (
 		<div className="user">
 			<Header />
@@ -56,18 +86,18 @@ const User = () => {
 					<NavLink to="/statistics">User satistics</NavLink>
 					<span>{'>'}</span>
 					<NavLink to="/user" activeClassName="selectedRoute">
-						Samuel Frost
+						{user[0]?.firstName + ' ' + user[0]?.lastName}
 					</NavLink>
 				</div>
 				<div className="row">
-					<h2>Samuel Frost</h2>
+					<h2>{user[0]?.firstName + ' ' + user[0]?.lastName}</h2>
 					<div className="selectDate">
 						<span>Select date range</span>
 						<DateRangePicker defaultValue={[startValue, endValue]} />
 					</div>
 				</div>
 				<CanvasJSChart options={options} />
-				<CanvasJSChart options={options} />
+				<CanvasJSChart options={options2} />
 			</div>
 			<Footer />
 		</div>

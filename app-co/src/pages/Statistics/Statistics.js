@@ -11,7 +11,9 @@ const Statistics = () => {
 	const API_URL = 'http://localhost:3004/users'
 
 	const [users, setUsers] = useState([])
+	const [usersAmount, setUsersAmount] = useState()
 	const [currentPage, setCurrentPage] = useState(1)
+
 	let handleChangePage = (event, newPage) => {
 		fetch(API_URL + `?page=${newPage}`)
 			.then(response => {
@@ -22,6 +24,7 @@ const Statistics = () => {
 			})
 		setCurrentPage(newPage)
 	}
+
 	useEffect(() => {
 		fetch(API_URL + `?page=${currentPage}`)
 			.then(response => {
@@ -30,12 +33,14 @@ const Statistics = () => {
 			.then(data => {
 				setUsers(data.data)
 			})
+		fetch(API_URL + '/amount')
+			.then(response => {
+				return response.json()
+			})
+			.then(data => {
+				setUsersAmount(data.data)
+			})
 	}, [])
-
-	const pageNumbers = []
-	for (let i = 0; i <= 20; i++) {
-		pageNumbers.push(i + 1)
-	}
 
 	return (
 		<div className="statistics">
@@ -79,7 +84,7 @@ const Statistics = () => {
 
 				<Pagination
 					className="pagination"
-					count={pageNumbers.length}
+					count={usersAmount / 50}
 					page={currentPage}
 					onChange={handleChangePage}
 					shape="rounded"
