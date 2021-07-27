@@ -1,6 +1,8 @@
 const fs = require('fs')
 const express = require('express')
+const cors = require('cors')
 const app = express()
+app.use(cors())
 let sqlite3 = require('sqlite3').verbose()
 let db = new sqlite3.Database('./db.sqlite3')
 
@@ -9,7 +11,7 @@ db.serialize(() => {
 		'CREATE TABLE IF NOT EXISTS appCo (id INTEGER PRIMARY KEY AUTOINCREMENT, firstName TEXT, lastName TEXT, email TEXT, gender TEXT, ipAddress TEXT)'
 	)
 	db.run(
-		'CREATE TABLE IF NOT EXISTS userStatistic (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, date TEXT, page_views INTEGER, clicks INTEGER)'
+		'CREATE TABLE IF NOT EXISTS userStatistic (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, date DATE, page_views INTEGER, clicks INTEGER)'
 	)
 	let sqlCount = `SELECT COUNT(*) AS Cnt FROM appCo UNION SELECT COUNT(*) AS Cnt FROM userStatistic`
 	db.all(sqlCount, [], (err, rows) => {
@@ -61,8 +63,10 @@ db.serialize(() => {
 		})
 	})
 	app.get('/user/:id', async (req, res) => {
+		let startDate = req.query.startDate
+		let endDate = req.query.endDate
 		let userId = req.params.id
-		let sql = `SELECT firstName, lastName, date, page_views, clicks FROM userStatistic INNER JOIN appCo WHERE appCo.id = ${userId} AND userStatistic.user_id = ${userId}`
+		let sql = `SELECT firstName, lastName, date, page_views, clicks FROM userStatistic INNER JOIN appCo WHERE appCo.id = ${userId} AND userStatistic.user_id = ${userId} AND userStatistic.date BETWEEN "${startDate}" AND "${endDate}"`
 
 		db.all(sql, (err, rows) => {
 			if (err) {

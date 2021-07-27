@@ -20,8 +20,10 @@
             }
         }
         .row {
+            margin-bottom: 24px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
             h2 {
                 font-weight: bold;
                 font-size: 32px;
@@ -39,6 +41,9 @@
                     margin-right: 8px;
                 }
             }
+        }
+        .chartWrapper {
+            margin-bottom: 48px;
         }
     }
 }
