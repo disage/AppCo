@@ -10,10 +10,10 @@ const port = process.env.PORT || 3004
 //здесь наше приложение отдаёт статику
 // app.use(express.static('public'))
 // app.use(express.static(path.join(__dirname, 'build')))
-app.use(express.static(__dirname + '../app-co'))
-app.use(express.static(path.join(__dirname + '../app-co', 'build')))
+app.use(express.static('../app-co'))
+app.use(express.static(path.join('../app-co', 'build')))
 app.get('/*', function (req, res) {
-	res.sendFile(path.join(__dirname + '../app-co', 'build', 'index.html'))
+	res.sendFile(path.join('../app-co', 'build', 'index.html'))
 })
 db.serialize(() => {
 	db.run(
