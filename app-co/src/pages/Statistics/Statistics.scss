@@ -85,3 +85,12 @@
         }
     }
 }
+
+@media (max-width: 1440px) {
+    .statistics {
+        .container {
+            padding: 10px !important;
+            overflow: scroll !important;
+        }
+    }
+}

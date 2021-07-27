@@ -13,7 +13,7 @@ const User = () => {
 	let currentUserId = window.location.pathname.split('/')[2]
 	const API_URL = `http://localhost:3004/user/${currentUserId}`
 	const [user, setUser] = useState([])
-
+	const [userName, setUserName] = useState([])
 	const startValue = new Date(
 		new Date().getFullYear(),
 		new Date().getMonth(),
@@ -30,12 +30,19 @@ const User = () => {
 		.substring(0, 10)
 
 	useEffect(() => {
-		fetch(API_URL + `?startDate=${startValue}&endDate=${endValue}`)
+		fetch(API_URL + `/statistic?startDate=${startValue}&endDate=${endValue}`)
 			.then(response => {
 				return response.json()
 			})
 			.then(data => {
 				setUser(data.data)
+			})
+		fetch(API_URL)
+			.then(response => {
+				return response.json()
+			})
+			.then(data => {
+				setUserName(data.data)
 			})
 	}, [])
 	let clicksArr = []
@@ -56,14 +63,31 @@ const User = () => {
 			margin: 24
 		},
 		axisX: {
-			valueFormatString: 'DD MMMM'
+			valueFormatString: 'DD MMMM',
+			tickLength: 0,
+			labelFontColor: '#CCC'
+		},
+		axisY: {
+			gridColor: '#F1F1F1',
+			tickLength: 0,
+			labelFontColor: '#CCC'
 		},
 		data: [
 			{
+				lineThickness: 4,
+
+				lineColor: '#3A80BA',
+				markerColor: '#3A80BA',
 				type: 'spline',
 				xValueFormatString: 'DD MMMM',
-				markerType: 'none',
-				dataPoints: clicksArr
+				// markerType: 'none',
+				dataPoints:
+					clicksArr.length > 0
+						? clicksArr
+						: [
+								{ x: new Date(startValue), y: 0 },
+								{ x: new Date(endValue), y: 0 }
+						  ]
 			}
 		]
 	}
@@ -76,40 +100,60 @@ const User = () => {
 			margin: 24
 		},
 		axisX: {
-			valueFormatString: 'DD MMMM'
+			valueFormatString: 'DD MMMM',
+			lineColor: '#CCC',
+			tickLength: 0,
+			labelFontColor: '#CCC'
 		},
+		axisY: {
+			gridColor: '#F1F1F1',
+			tickLength: 0,
+			labelFontColor: '#CCC'
+		},
+
 		data: [
 			{
+				lineThickness: 4,
+				lineColor: '#3A80BA',
+				markerColor: '#3A80BA',
 				type: 'spline',
 				xValueFormatString: 'DD MMMM',
-				markerType: 'none',
-				dataPoints: viewsArr
+				// markerType: 'none',
+				dataPoints:
+					viewsArr.length > 0
+						? viewsArr
+						: [
+								{ x: new Date(startValue), y: 0 },
+								{ x: new Date(endValue), y: 0 }
+						  ]
 			}
 		]
 	}
 
 	let setDateHandler = value => {
-		const startDate = new Date(
-			new Date(value[0]).getFullYear(),
-			new Date(value[0]).getMonth(),
-			new Date(value[0]).getDate() + 1
-		)
-			.toISOString()
-			.substring(0, 10)
-		const endDate = new Date(
-			new Date(value[1]).getFullYear(),
-			new Date(value[1]).getMonth(),
-			new Date(value[1]).getDate() + 1
-		)
-			.toISOString()
-			.substring(0, 10)
-		fetch(API_URL + `?startDate=${startDate}&endDate=${endDate}`)
-			.then(response => {
-				return response.json()
-			})
-			.then(data => {
-				setUser(data.data)
-			})
+		if (value.length > 1) {
+			const startDate = new Date(
+				new Date(value[0]).getFullYear(),
+				new Date(value[0]).getMonth(),
+				new Date(value[0]).getDate() + 1
+			)
+				.toISOString()
+				.substring(0, 10)
+			const endDate = new Date(
+				new Date(value[1]).getFullYear(),
+				new Date(value[1]).getMonth(),
+				new Date(value[1]).getDate() + 1
+			)
+				.toISOString()
+				.substring(0, 10)
+			fetch(API_URL + `/statistic?startDate=${startDate}&endDate=${endDate}`)
+				.then(response => {
+					return response.json()
+				})
+				.then(data => {
+					setUser(data.data)
+				})
+		}
 	}
 	return (
 		<div className="user">
@@ -121,11 +165,11 @@ const User = () => {
 					<NavLink to="/statistics">User satistics</NavLink>
 					<span>{'>'}</span>
 					<NavLink to="/user" activeClassName="selectedRoute">
-						{user[0]?.firstName + ' ' + user[0]?.lastName}
+						{userName[0]?.firstName + ' ' + userName[0]?.lastName}
 					</NavLink>
 				</div>
 				<div className="row">
-					<h2>{user[0]?.firstName + ' ' + user[0]?.lastName}</h2>
+					<h2>{userName[0]?.firstName + ' ' + userName[0]?.lastName} </h2>
 					<div className="selectDate">
 						<span>Select date range</span>
 						<DateRangePicker

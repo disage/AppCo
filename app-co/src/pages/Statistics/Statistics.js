@@ -13,7 +13,6 @@ const Statistics = () => {
 	const [users, setUsers] = useState([])
 	const [usersAmount, setUsersAmount] = useState()
 	const [currentPage, setCurrentPage] = useState(1)
-
 	let handleChangePage = (event, newPage) => {
 		fetch(API_URL + `?page=${newPage}`)
 			.then(response => {
@@ -77,6 +76,8 @@ const Statistics = () => {
 								email={item.email}
 								gender={item.gender}
 								ip={item.ipAddress}
+								page_views={item.page_views}
+								clicks={item.clicks}
 							/>
 						))}
 					</tbody>

@@ -19,3 +19,13 @@ footer {
         }
     }
 }
+@media (max-width: 1440px) {
+    footer {
+        .container {
+            padding: 14px 10px !important;
+            p {
+                font-size: 12px !important;
+            }
+        }
+    }
+}

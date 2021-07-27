@@ -46,16 +46,29 @@ db.serialize(() => {
 		let elementsPerPage = 50
 		let pageNumber = req.query.page
 		let firstItem = 50 * (pageNumber - 1)
-		let sql = `SELECT * FROM appCo LIMIT ${firstItem}, ${elementsPerPage}`
+		let sql = `SELECT * FROM appCo INNER JOIN userStatistic WHERE userStatistic.user_id = appCo.id LIMIT ${firstItem}, ${elementsPerPage}`
 		db.all(sql, (err, rows) => {
 			if (err) {
 				res.status(400).json({ error: err.message })
 				return
 			}
-			res.setHeader('Access-Control-Allow-Origin', '*')
-			res.setHeader('Access-Control-Allow-Methods', 'GET')
-			res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-			res.setHeader('Access-Control-Allow-Credentials', true)
+			res.json({
+				message: 'success',
+				data: rows
+			})
+		})
+	})
+	app.get('/user/:id/statistic', async (req, res) => {
+		let startDate = req.query.startDate
+		let endDate = req.query.endDate
+		let userId = req.params.id
+		let sql = `SELECT date, page_views, clicks FROM userStatistic WHERE user_id = ${userId} AND userStatistic.date BETWEEN "${startDate}" AND "${endDate}"`
+
+		db.all(sql, (err, rows) => {
+			if (err) {
+				res.status(400).json({ error: err.message })
+				return
+			}
 			res.json({
 				message: 'success',
 				data: rows
@@ -63,20 +76,14 @@ db.serialize(() => {
 		})
 	})
 	app.get('/user/:id', async (req, res) => {
-		let startDate = req.query.startDate
-		let endDate = req.query.endDate
 		let userId = req.params.id
-		let sql = `SELECT firstName, lastName, date, page_views, clicks FROM userStatistic INNER JOIN appCo WHERE appCo.id = ${userId} AND userStatistic.user_id = ${userId} AND userStatistic.date BETWEEN "${startDate}" AND "${endDate}"`
+		let sql = `SELECT firstName, lastName FROM appCo  WHERE appCo.id = ${userId}`
 
 		db.all(sql, (err, rows) => {
 			if (err) {
 				res.status(400).json({ error: err.message })
 				return
 			}
-			res.setHeader('Access-Control-Allow-Origin', '*')
-			res.setHeader('Access-Control-Allow-Methods', 'GET')
-			res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-			res.setHeader('Access-Control-Allow-Credentials', true)
 			res.json({
 				message: 'success',
 				data: rows
@@ -90,10 +97,6 @@ db.serialize(() => {
 				res.status(400).json({ error: err.message })
 				return
 			}
-			res.setHeader('Access-Control-Allow-Origin', '*')
-			res.setHeader('Access-Control-Allow-Methods', 'GET')
-			res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-			res.setHeader('Access-Control-Allow-Credentials', true)
 			res.json({
 				message: 'success',
 				data: rows[0].Cnt

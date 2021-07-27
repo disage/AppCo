@@ -88,11 +88,11 @@
         background-size: cover;
         background-image: url(../..//assets/img/footerBg.png);
         padding-top: 26px;
-        background-color: transparent ;
+        background-color: transparent;
         .emailSubscribe {
             display: flex;
             justify-content: space-between;
-            width: 580px;
+            max-width: 580px;
             margin: auto;
             border: 1px solid #f1f1f1;
             background: #fff;
@@ -140,6 +140,36 @@
             }
             .logo {
                 font-size: 32px;
+            }
+        }
+    }
+}
+@media (max-width: 1440px) {
+    .infoSection {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        justify-content: center !important;
+        .infoWrapper {
+            margin-bottom: 30px;
+        }
+    }
+    .cardsWrapper {
+        box-sizing: content-box;
+        padding: 10px;
+        .workCard {
+            padding: 25px;
+            width: 90%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+    footer {
+        padding: 0px 10px 0px 10px !important;
+
+        .footerInfo {
+            padding: 0 !important;
+            p {
+                font-size: 12px !important;
             }
         }
     }

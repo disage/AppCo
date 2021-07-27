@@ -2,16 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import './TableRow.scss'
 
-const TableRow = ({
-	id,
-	firstname,
-	lastname,
-	email,
-	gender,
-	ip,
-	totalClicks,
-	totalViews
-}) => {
+const TableRow = ({ id, firstname, lastname, email, gender, ip, clicks, page_views }) => {
 	const history = useHistory()
 
 	const routeChange = () => {
@@ -26,8 +17,8 @@ const TableRow = ({
 			<td>{email}</td>
 			<td>{gender}</td>
 			<td>{ip}</td>
-			<td>0</td>
-			<td>0</td>
+			<td>{clicks}</td>
+			<td>{page_views}</td>
 		</tr>
 	)
 }

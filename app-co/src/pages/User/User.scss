@@ -40,10 +40,18 @@
                     color: #444444;
                     margin-right: 8px;
                 }
+                .rs-picker-toggle-caret {
+                    color: #3a80ba;
+                }
             }
         }
         .chartWrapper {
             margin-bottom: 48px;
         }
+    }
+}
+@media (max-width: 1440px) {
+    .row {
+        flex-wrap: wrap;
     }
 }
