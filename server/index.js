@@ -5,7 +5,11 @@ const app = express()
 app.use(cors())
 let sqlite3 = require('sqlite3').verbose()
 let db = new sqlite3.Database('./db.sqlite3')
-
+const path = require('path')
+const port = process.env.PORT || 3004
+//здесь наше приложение отдаёт статику
+app.use(express.static(__dirname))
+app.use(express.static(path.join(__dirname, 'build')))
 db.serialize(() => {
 	db.run(
 		'CREATE TABLE IF NOT EXISTS appCo (id INTEGER PRIMARY KEY AUTOINCREMENT, firstName TEXT, lastName TEXT, email TEXT, gender TEXT, ipAddress TEXT)'
@@ -108,4 +112,9 @@ process.on('SIGINT', () => {
 	db.close()
 })
 
-app.listen(3004, () => console.log('server is running'))
+// app.listen(port, () => console.log('server is running'))
+//обслуживание html
+app.get('/*', function (req, res) {
+	res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
+app.listen(port)
