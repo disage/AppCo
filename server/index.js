@@ -8,12 +8,12 @@ let db = new sqlite3.Database('./db.sqlite3')
 const path = require('path')
 const port = process.env.PORT || 3004
 //здесь наше приложение отдаёт статику
-// app.use(express.static(__dirname))
+// app.use(express.static('public'))
 // app.use(express.static(path.join(__dirname, 'build')))
-app.use(express.static('../client'))
-app.use(express.static(path.join('../client', 'build')))
+app.use(express.static(__dirname + '../app-co'))
+app.use(express.static(path.join(__dirname + '../app-co', 'build')))
 app.get('/*', function (req, res) {
-	res.sendFile(path.join('../client', 'build', 'index.html'))
+	res.sendFile(path.join(__dirname + '../app-co', 'build', 'index.html'))
 })
 db.serialize(() => {
 	db.run(
