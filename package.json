@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "start": "node server/index.js"
+    "start": "npm run build && npm install --no-optional --prefix server && npm start --prefix server" 
   }
 }

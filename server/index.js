@@ -10,11 +10,14 @@ const port = process.env.PORT || 3004
 //здесь наше приложение отдаёт статику
 // app.use(express.static('public'))
 // app.use(express.static(path.join(__dirname, 'build')))
-app.use(express.static('../app-co'))
-app.use(express.static(path.join('../app-co', 'build')))
-app.get('/*', function (req, res) {
-	res.sendFile(path.join('../app-co', 'build', 'index.html'))
-})
+
+if (process.env.NODE_ENV === 'production') {
+	// Set static folder
+	app.use(express.static('client/build'));​
+	app.get('*', (req, res) => {
+		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+	});
+}
 db.serialize(() => {
 	db.run(
 		'CREATE TABLE IF NOT EXISTS appCo (id INTEGER PRIMARY KEY AUTOINCREMENT, firstName TEXT, lastName TEXT, email TEXT, gender TEXT, ipAddress TEXT)'
@@ -116,7 +119,5 @@ db.serialize(() => {
 process.on('SIGINT', () => {
 	db.close()
 })
-
-// app.listen(port, () => console.log('server is running'))
 
 app.listen(port)
